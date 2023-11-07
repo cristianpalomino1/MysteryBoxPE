@@ -1,0 +1,64 @@
+/* Estilo para el contenedor principal */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Estilo para las tarjetas de productos */
+.product-card {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Cambia la dirección de los elementos a columnas */
+    align-items: center;
+    text-align: center; /* Centra el contenido de la tarjeta */
+}
+
+.product-card img {
+    margin-bottom: 10px;
+    /* Agrega espacio entre la imagen y el título */
+}
+
+.product-info {
+    flex-grow: 1;
+}
+
+.product-title {
+    font-size: 18px;
+    margin: 0;
+}
+
+.product-price {
+    color: #007bff;
+    font-size: 16px;
+}
+
+/* Estilo para el formulario de compra */
+.purchase-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los elementos del formulario */
+}
+
+.purchase-form label {
+    margin-bottom: 10px;
+}
+
+.purchase-form select,
+.purchase-form input[type="number"] {
+    padding: 5px;
+    margin-bottom: 10px;
+    width: 100%; /* Ocupa todo el ancho disponible */
+}
+
+.purchase-form input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: auto; /* Restaura el ancho automático para el botón */
+}

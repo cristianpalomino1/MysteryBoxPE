@@ -1,0 +1,33 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<footer class="pie-pagina">
+    <div class="grupo-1">
+        <div class="box">
+            <div class="iconoContenedor">
+                <a href="#" class="icon">
+                    <img src="img-general/icono.png" alt="" width="50" height="50">
+                    MysteryBox PE
+                </a>
+            </div>
+        </div>
+        <div class="box">
+            <h2>SOBRE NOSOTROS</h2>
+            <p>Brindamos experiencias de compra emocionantes</p>
+            <p>"Comprar una MysteryBox es como recibir un regalo de cumpleaños"</p>
+        </div>
+        <div class="box">
+            <h2>SIGUENOS</h2>
+            <div class="red-social">
+                <a href="#" class="fa fa-facebook"></a>
+                <a href="#" class="fa fa-instagram"></a>
+                <a href="#" class="fa-brands fa-tiktok"></a>
+            </div>
+        </div>
+    </div>
+    <div class="grupo-2">
+        <small>
+            &COPY; 2023 <b>MysteryBox PE</b> -Todos los Derechos Reservados.
+        </small>
+    </div>
+</footer>
+

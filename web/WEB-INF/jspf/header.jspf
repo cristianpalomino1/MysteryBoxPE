@@ -1,0 +1,116 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+
+
+
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid contenedor-header">
+            <a class="brand-nav navbar-brand" href="/MysteryBoxPE/">
+                <img src="img-general/icono.png" alt="" width="30" height="30" class="d-inline-block align-text-top">
+                MysteryBox PE
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="header-options navbar-nav ms-auto">
+
+                    <% boolean conectado = (Boolean) request.getAttribute("conectado"); %>
+
+
+                    <%if (conectado) {%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Carrito</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Cuenta
+                        </a>
+                        <form action="Cierre" method="POST">
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="MiPerfil"><img class="menu-icon" src="img-general/menu-user-default.svg"/>Perfil</a></li>
+                                <li><a class="dropdown-item" href="#"><img class="menu-icon" src="img-general/menu-clock.svg"/>Historial de Compras</a></li>
+                                <li><a class="dropdown-item" href="Cierre"><img class="menu-icon" src="img-general/menu-cerrar.PNG"/>Cerrar Sesión</a></li>
+                                <li>${username}</li>
+                            </ul>
+                        </form>
+                    </li>
+                    <%    } else { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="login-open">Iniciar Sesión</a>
+                    </li>
+                    <%
+                        }
+                    %>
+
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+    <div class="contenedor-login" id="contenedor-login">
+        <div class="contenido-login row">
+            <button class="boton-aux-cerrar" id="login-close"></button>
+            <div class="col-6 lado-izquierdo">
+                <img class="imagen-login" src="img-general/icono.png" alt="alt"/>
+                <p>¡Bienvenido/a devuelta a <strong>MISTERY BOX PE!</strong></p>
+                <p>¿Aun no tienes una cuenta? Crea una haciendo <a href="#" id="crearCuenta">Click aquí</a><p>
+            </div>
+            <div class="col-6 lado-derecho">
+                <form action="Login" method="post">
+                    <label>Nombre de cuenta</label>
+                    <input type="text" name="username" required autocomplete="off">
+                    <label>Contraseña</label>
+                    <input type="password" name="password" required autocomplete="off">
+                    <button type="submit" class="btn-iniciosesion">Iniciar Sesión</button>
+                    <a href="#">¿Olvidaste tu contraseña?</a>
+                </form>              
+            </div>  
+            <label for="login-close" class="cerrar-modal"></label>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="contenedor-registro" id="contenedor-registro">
+        <div class="contenido-registro row">
+            <button class="boton-aux-cerrar" id="registro-close"></button>
+            <div class="col-6 lado-izquierdo">
+                <img class="imagen-login" src="img-general/icono.png" alt="alt"/>
+                <p>¡Bienvenido/a devuelta a <strong>MISTERY BOX PE!</strong></p>
+                <p>¿Ya tienes una cuenta? Inicia sesión haciendo <a href="#" id="login-open-byregistro">Click aquí</a><p>
+            </div>
+            <div class="col-6 lado-derecho">
+                <form action="?accion=registro" method="post">
+                    <label>Crea un nombre de cuenta</label>
+                    <input type="text" name="username" required autocomplete="off" >
+                    <label>Ingresa Email</label>
+                    <input type="email" name="email" required autocomplete="off">
+                    <label>Crea una contraseña</label>
+                    <input type="password" name="password" required autocomplete="off">
+                    <label>Repite la contraseña</label>
+                    <input type="password" name="password-confirm" required autocomplete="off">
+                    <button type="submit" class="btn-iniciosesion">Crear Cuenta</button>
+                </form>              
+            </div>  
+            <label for="registro-close" class="cerrar-modal"></label>
+        </div>
+    </div>
+
+    <script src="js/header_login_registro.js"></script>
+</header>

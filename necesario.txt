@@ -1,0 +1,7 @@
+apache-tomcat-8.5.93
+mysql connector 8.1.0
+jdk 20
+
+mysql 8.0.34
+user:root
+pass:admin
