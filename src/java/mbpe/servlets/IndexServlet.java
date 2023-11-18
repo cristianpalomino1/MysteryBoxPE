@@ -53,7 +53,8 @@ public class IndexServlet extends HttpServlet {
             request.setAttribute("capacidad" + i, capacidad);
             request.setAttribute("precio" + i, precio);
         }
-        request.setAttribute("listaCategorias", listacategorias);
+        System.out.println(listacategorias.size()); 
+       request.setAttribute("listaCategorias", listacategorias);
         request.setAttribute("listaPlantillas", listaPlantillas);
     }
 
@@ -63,7 +64,7 @@ public class IndexServlet extends HttpServlet {
 
         DaoLoginImpl login = new DaoLoginImpl();
         Usuario user = Usuario.ObtenerUser();
-        
+        List carrito = Usuario.ObtenerCarrito();
         String accion;
 
         request.setAttribute("conectado", user.getConectado());
