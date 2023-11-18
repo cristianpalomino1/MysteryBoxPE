@@ -5,6 +5,8 @@
 package mbpe.dao;
 
 public interface DAOlogin {
+
     boolean VerificarUser(String username, String contraseña); //Verificar username y contraseña
+
     void RegistrarUser(String correo, String username, String contraseña); //Insertar usuario contraseña y correo
 }

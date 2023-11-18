@@ -32,7 +32,7 @@ public class IndexServlet extends HttpServlet {
 
     private void obtenerYConfigurarDatos(HttpServletRequest request) {
 
-        List<Plantilla> listaPlantillas = plantilla.PlantillaSelect();
+        List<Plantilla> listaPlantillas = plantilla.PlantillaList();
         List<String> listacategorias = new ArrayList();
         String cataux = "";
         for (int i = 0; i < listaPlantillas.size(); i++) {

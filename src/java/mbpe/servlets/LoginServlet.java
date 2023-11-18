@@ -6,6 +6,7 @@ package mbpe.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,6 +30,7 @@ public class LoginServlet extends HttpServlet {
             DaoLoginImpl login = new DaoLoginImpl();
             RequestDispatcher dispatcher = null;
             Usuario user = Usuario.ObtenerUser();
+            List carrito = Usuario.ObtenerCarrito();
             
             String username = request.getParameter("username");
             String contraseña = request.getParameter("password");

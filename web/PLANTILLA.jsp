@@ -7,7 +7,7 @@
         <%@include file="WEB-INF/jspf/lib.jspf"%>
     </head>
     <body>
-        <%@include file="WEB-INF/jspf/header_in.jspf" %>
+        <%@include file="WEB-INF/jspf/header.jspf" %>
         <main>
             <!--CONTENIDO AQUI-->
             <!--CONTENIDO AQUI-->

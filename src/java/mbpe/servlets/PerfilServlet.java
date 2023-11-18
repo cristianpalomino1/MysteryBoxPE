@@ -6,6 +6,7 @@ package mbpe.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +27,8 @@ public class PerfilServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher dispatcher = null;
         Usuario user = Usuario.ObtenerUser();
-
+        List carrito = Usuario.ObtenerCarrito();
+        
         request.setAttribute("conectado", user.getConectado());
         dispatcher = request.getRequestDispatcher("pefil.jsp");
     }

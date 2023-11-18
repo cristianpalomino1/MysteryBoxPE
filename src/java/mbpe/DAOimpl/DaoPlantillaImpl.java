@@ -13,7 +13,6 @@ import mbpe.util.Conexion;
 public class DaoPlantillaImpl implements DAOPlantilla {
 
     Connection conexion;
-    String mensaje;
 
     public DaoPlantillaImpl() {
         Conexion con = new Conexion();
@@ -21,7 +20,7 @@ public class DaoPlantillaImpl implements DAOPlantilla {
     }
 
     @Override
-    public List<Plantilla> PlantillaSelect() {
+    public List<Plantilla> PlantillaList() {
         List<Plantilla> list = null;
         String sql;
         sql = "SELECT * FROM plantillas";
@@ -47,7 +46,7 @@ public class DaoPlantillaImpl implements DAOPlantilla {
     }
 
     @Override
-    public Plantilla PlantillaGet(Integer id) {
+    public Plantilla PlantillaSelect(Integer id) {
         String sql;
         sql = "SELECT * FROM plantillas WHERE id_plantilla = ?";
         try {
@@ -66,5 +65,20 @@ public class DaoPlantillaImpl implements DAOPlantilla {
         } catch (SQLException e) {
             return null;
         }
+    }
+
+    @Override
+    public void PlantillaInsert(Plantilla Plantilla) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void PlantillaDelete(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void PlantillaUpdate(Plantilla Plantilla) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

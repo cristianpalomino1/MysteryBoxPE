@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import mbpe.clases.Usuario;
 import mbpe.util.Conexion;
 
@@ -25,7 +26,12 @@ public class DaoUsuarioImpl implements mbpe.dao.DAOusuario {
     }
 
     @Override
-    public Usuario UsuarioGet(Integer id) {
+    public List<Usuario> UsuarioList() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Usuario UsuarioSelect(Integer id) {
         Usuario usuario = new Usuario();
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ")
@@ -67,22 +73,17 @@ public class DaoUsuarioImpl implements mbpe.dao.DAOusuario {
     }
 
     @Override
-    public String UsuarioUpdate(Usuario usuario) {
+    public void UsuarioInsert(Usuario Usuario) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public String getMensaje() {
+    public void UsuarioDelete(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public String UsuarioInsert(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Boolean VerificarContraseña(Blob contraseña) {
+    public void UsuarioUpdate(Usuario Usuario) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

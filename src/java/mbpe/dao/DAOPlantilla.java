@@ -5,6 +5,13 @@ import mbpe.clases.Plantilla;
 
 public interface DAOPlantilla {
 
-    public List<Plantilla> PlantillaSelect();
-    Plantilla PlantillaGet(Integer id);         // SELECT * FROM WHERE
+    public List<Plantilla> PlantillaList();
+
+    Plantilla PlantillaSelect(Integer id);
+
+    void PlantillaInsert(Plantilla Plantilla);
+
+    void PlantillaDelete(Integer id);
+
+    void PlantillaUpdate(Plantilla Plantilla);
 }

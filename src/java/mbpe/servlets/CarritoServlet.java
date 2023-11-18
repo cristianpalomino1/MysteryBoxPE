@@ -21,8 +21,8 @@ import mbpe.clases.Usuario;
  *
  * @author Alex
  */
-@WebServlet(name = "ProductoServlet", urlPatterns = {"/MysteryBox"})
-public class ProductoServlet extends HttpServlet {
+@WebServlet(name = "CarritoServlet", urlPatterns = {"/Carrito"})
+public class CarritoServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,14 +32,13 @@ public class ProductoServlet extends HttpServlet {
         Plantilla mb = new Plantilla();
         Usuario user = Usuario.ObtenerUser();
         List carrito = Usuario.ObtenerCarrito();
-        
         request.setAttribute("conectado", user.getConectado());
         String accion;
         accion = request.getParameter("accion");
         RequestDispatcher dispatcher = null;
         
         if (accion == null || accion.isEmpty()) {
-            dispatcher = request.getRequestDispatcher("comprar.jsp");
+            dispatcher = request.getRequestDispatcher("carrito.jsp");
             int id = Integer.parseInt(request.getParameter("id_plantilla"));
             request.setAttribute("id_plantilla", id);
             
@@ -53,8 +52,6 @@ public class ProductoServlet extends HttpServlet {
             request.setAttribute("capacidad_plantilla", capacidad);
             request.setAttribute("precio_plantilla", precio);
             dispatcher.forward(request, response);
-        } else if(accion == "carrito"){
-            
         }
     }
 

@@ -4,14 +4,18 @@
  */
 package mbpe.dao;
 
-import java.sql.Blob;
+import java.util.List;
 import mbpe.clases.Usuario;
 
 public interface DAOusuario {
 
-    Usuario UsuarioGet(Integer id);         // SELECT * FROM WHERE
-    String UsuarioUpdate (Usuario usuario);   // UPDATE
-    String UsuarioInsert (Usuario usuario); //INSERT
-    Boolean VerificarContraseña(Blob contraseña); //Verifica contraseña
-    String getMensaje();
+    public List<Usuario> UsuarioList();
+
+    Usuario UsuarioSelect(Integer id);
+
+    void UsuarioInsert(Usuario Usuario);
+
+    void UsuarioDelete(Integer id);
+
+    void UsuarioUpdate(Usuario Usuario);
 }

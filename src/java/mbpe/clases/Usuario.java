@@ -4,7 +4,8 @@
  */
 package mbpe.clases;
 
-import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Usuario {
 
@@ -24,10 +25,15 @@ public class Usuario {
     }
     
     private static Usuario user = new Usuario();
+    private static List<Producto> listaCarrito = new ArrayList();
     
     public static Usuario ObtenerUser(){
         return user;
     }
+    public static List ObtenerCarrito(){
+        return listaCarrito;
+    }
+        
     public int getId_direccion() {
         return id_direccion;
     }
