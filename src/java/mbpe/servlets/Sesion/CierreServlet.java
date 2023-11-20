@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package mbpe.servlets;
+package mbpe.servlets.Sesion;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,14 +28,22 @@ public class CierreServlet extends HttpServlet {
 
         DaoLoginImpl login = new DaoLoginImpl();
         login.logOut();
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-        // Indica al navegador que no almacene en caché la página
-        response.setHeader("Cache-Control", "no-store");
+        try {
+            // Invalidar la sesión
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.invalidate();
+            }
 
-        response.sendRedirect("/MysteryBoxPE/");
+            // Indica al navegador que no almacene en caché la página
+            response.setHeader("Cache-Control", "no-store");
+
+            // Redirigir al usuario después de invalidar la sesión
+            response.sendRedirect("/MysteryBoxPE/");
+        } catch (IOException e) {
+            // Manejar la excepción en caso de problemas con la redirección
+            e.printStackTrace(); // Tratamiento adecuado en producción
+        }
 
     }
 

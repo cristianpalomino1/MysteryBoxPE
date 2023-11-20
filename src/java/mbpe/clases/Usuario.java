@@ -21,19 +21,34 @@ public class Usuario {
     private boolean conectado;
 
     public Usuario() {
-        conectado=false;
+        conectado = false;
     }
-    
+
     private static Usuario user = new Usuario();
-    private static List<Producto> listaCarrito = new ArrayList();
+    private static List<Integer> listaCarrito = new ArrayList<>();  
+    private static List<Integer> cantidadCarrito = new ArrayList<>(); 
+ 
     
-    public static Usuario ObtenerUser(){
-        return user;
+    public void addCarrito(int id_plantilla, int cantidad){
+        listaCarrito.add(id_plantilla);
+        cantidadCarrito.add(cantidad);
     }
-    public static List ObtenerCarrito(){
+    public void delCarrito(int index) {
+        listaCarrito.remove(index);
+        cantidadCarrito.remove(index);
+    }
+
+    public static List ObtenerCarrito() {
         return listaCarrito;
     }
-        
+    public static List ObtenerCantidad() {
+        return cantidadCarrito;
+    }
+
+    public static Usuario ObtenerUser() {
+        return user;
+    }
+
     public int getId_direccion() {
         return id_direccion;
     }
@@ -113,5 +128,5 @@ public class Usuario {
     public void setConectado(boolean conectado) {
         this.conectado = conectado;
     }
-    
+
 }

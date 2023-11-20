@@ -96,7 +96,7 @@
                 <p>¿Ya tienes una cuenta? Inicia sesión haciendo <a href="#" id="login-open-byregistro">Click aquí</a><p>
             </div>
             <div class="col-6 lado-derecho">
-                <form action="?accion=registro" method="post">
+                <form action="Registro" method="post">
                     <label>Crea un nombre de cuenta</label>
                     <input type="text" name="username" required autocomplete="off" >
                     <label>Ingresa Email</label>

@@ -21,34 +21,44 @@ import mbpe.clases.Usuario;
  *
  * @author Alex
  */
-@WebServlet(name = "CarritoServlet", urlPatterns = {"/Carrito"})
-public class CarritoServlet extends HttpServlet {
+@WebServlet(name = "AddProductServlet", urlPatterns = {"/AddProduct"})
+public class AddProductServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
+
         DaoPlantillaImpl plantilla = new DaoPlantillaImpl();
         Plantilla mb = new Plantilla();
-        Usuario user = Usuario.ObtenerUser();
+
+        mb.setAdded(true);
+        System.out.println("ADD PRODUCT SERVLET added = true"); 
+       Usuario user = Usuario.ObtenerUser();
         List carrito = Usuario.ObtenerCarrito();
         request.setAttribute("conectado", user.getConectado());
 
         RequestDispatcher dispatcher = null;
 
-        dispatcher = request.getRequestDispatcher("carrito.jsp");
-        int id = Integer.parseInt(request.getParameter("id_plantilla"));
-        request.setAttribute("id_plantilla", id);
+        //crear un servlet para añadir al carrito, hacer que este servlet envie un flag a 
+        //este servlet y me redirija a esta pagina y que la pagina jsp dependiendo si tiene 
+        //o no la flag mostrará la ventana modal
+        int id_plantilla = Integer.parseInt(request.getParameter("id_plantilla"));
+        int cantidad = Integer.parseInt(request.getParameter("cantidad"));
 
-        mb = plantilla.PlantillaSelect(id);
-        String nombre = mb.getNombre();
-        String categoria = mb.getCategoria();
-        int capacidad = mb.getCapacidad();
-        double precio = mb.getPrecio();
-        request.setAttribute("nombre_plantilla", nombre);
-        request.setAttribute("categoria_plantilla", categoria);
-        request.setAttribute("capacidad_plantilla", capacidad);
-        request.setAttribute("precio_plantilla", precio);
+        user.ObtenerCarrito().add(id_plantilla);
+        user.ObtenerCantidad().add(cantidad);
+        
+        for (int i = 0; i < user.ObtenerCarrito().size(); i++) {
+            System.out.println("producto: "+ user.ObtenerCarrito().get(i) +" cantidad: "+ user.ObtenerCantidad().get(i));
+        }
+        
+        System.out.println("producto: " + id_plantilla);
+        System.out.println("cantidad: " + cantidad);
+
+        int idEnvio = id_plantilla;
+        request.setAttribute("id_plantilla", idEnvio);
+        dispatcher = request.getRequestDispatcher("/MysteryBox");
         dispatcher.forward(request, response);
 
     }

@@ -8,6 +8,7 @@ public class Plantilla {
     private int capacidad;
 
     public Plantilla() {
+        
     }
 
     public Plantilla(double precio, String categoria, int capacidad) {
@@ -15,6 +16,16 @@ public class Plantilla {
         this.precio = precio;
         this.categoria = categoria;
         this.capacidad = capacidad;
+    }
+    
+    private static boolean added;
+    
+    public boolean setAdded(boolean booleano){
+        this.added = booleano;
+        return added;
+    }
+    public boolean getAdded(){
+        return added;
     }
 
     public int getId_plantilla() {

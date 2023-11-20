@@ -15,10 +15,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import mbpe.DAOimpl.DaoCategoriaImpl;
 import mbpe.DAOimpl.DaoLoginImpl;
 import mbpe.DAOimpl.DaoPlantillaImpl;
 import mbpe.DAOimpl.DaoUsuarioImpl;
 import mbpe.clases.Plantilla;
+import mbpe.clases.Categoria;
 import mbpe.clases.Usuario;
 
 /**
@@ -29,23 +31,22 @@ import mbpe.clases.Usuario;
 public class IndexServlet extends HttpServlet {
 
     DaoPlantillaImpl plantilla = new DaoPlantillaImpl();
+    DaoCategoriaImpl categoria = new DaoCategoriaImpl();
 
     private void obtenerYConfigurarDatos(HttpServletRequest request) {
 
         List<Plantilla> listaPlantillas = plantilla.PlantillaList();
-        List<String> listacategorias = new ArrayList();
-        String cataux = "";
+        List<Categoria> listaCategorias = categoria.CategoriaList();
+
         for (int i = 0; i < listaPlantillas.size(); i++) {
             int id_plantilla = listaPlantillas.get(i).getId_plantilla();
             String nombre = listaPlantillas.get(i).getNombre();
             String categoria = listaPlantillas.get(i).getCategoria();
             int capacidad = listaPlantillas.get(i).getCapacidad();
             double precio = listaPlantillas.get(i).getPrecio();
+
             String aux = String.valueOf(i);
-            if (!cataux.equals(categoria)) {
-                listacategorias.add(categoria);
-                cataux = categoria;
-            }
+
             request.setAttribute("id_plantilla", id_plantilla);
             request.setAttribute("aux", aux);
             request.setAttribute("nombre" + i, nombre);
@@ -53,8 +54,13 @@ public class IndexServlet extends HttpServlet {
             request.setAttribute("capacidad" + i, capacidad);
             request.setAttribute("precio" + i, precio);
         }
-        System.out.println(listacategorias.size()); 
-       request.setAttribute("listaCategorias", listacategorias);
+
+        for (int i = 0; i < listaCategorias.size(); i++) {
+            int id_categoria = listaCategorias.get(i).getId();
+            String nom_categoria = listaCategorias.get(i).getCategoria();
+            request.setAttribute("categoria" + i, nom_categoria);
+        }
+        request.setAttribute("listaCategorias", listaCategorias);
         request.setAttribute("listaPlantillas", listaPlantillas);
     }
 
@@ -63,42 +69,17 @@ public class IndexServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         DaoLoginImpl login = new DaoLoginImpl();
+
         Usuario user = Usuario.ObtenerUser();
         List carrito = Usuario.ObtenerCarrito();
-        String accion;
-
         request.setAttribute("conectado", user.getConectado());
+
+        String accion;
         RequestDispatcher dispatcher = null;
         accion = request.getParameter("accion");
         dispatcher = request.getRequestDispatcher("index.jsp");
-
-        if (accion == null || accion.isEmpty()) {
-            obtenerYConfigurarDatos(request);
-            dispatcher.forward(request, response);
-        }
-            
-    
-         else if (accion.equals("registro")) {
-            String username = request.getParameter("username");
-            String correo = request.getParameter("email");
-            String contraseña = request.getParameter("password");
-            String contraseña_prueba = request.getParameter("password-confirm");
-
-            if (contraseña.equals(contraseña_prueba)) {
-                login.RegistrarUser(correo, username, contraseña);
-                obtenerYConfigurarDatos(request);
-
-            } else if (!contraseña.equals(contraseña_prueba)) {
-                System.out.println("Contraseñas diferentes");
-                obtenerYConfigurarDatos(request);
-
-            } else {
-                System.out.println("error servlet");
-                obtenerYConfigurarDatos(request);
-            }
-            dispatcher.forward(request, response);
-        }
-
+        obtenerYConfigurarDatos(request);
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

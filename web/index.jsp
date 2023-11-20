@@ -57,15 +57,13 @@
 
                         <!--Codigo repeticion-->
                         <c:forEach var="a" items="${listaCategorias}">
-
-                            <li class="nav-item categoria-item-contenedor btn-color btn${a}">
+                            <li class="nav-item categoria-item-contenedor btn-color btn${a.categoria}">
                                 <!--cambiar icono-->
                                 <img src="img-general/starico.png" alt="star"/>
                                 <!--dar nombre de categoria-->
-                                <a class="" href="javascript:mostrar${a}();">${a}</a>
+                                <a class="" href="javascript:mostrar${a.categoria}();">${a.categoria}</a>
                             </li>
                         </c:forEach>
-
                         <!--Codigo repeticion-->
                         <li class="nav-item categoria-item-contenedor btn-color btnMostratTodo">
                             <!--cambiar icono-->
@@ -73,6 +71,40 @@
                             <!--dar nombre de categoria-->
                             <a href="javascript:mostrarTodo();">Ver todo</a>
                         </li>
+                        <!-- MOSTRAR CATEGORIA // TODO -->
+                        <script>
+                            // Función para mostrar productos de una categoría específica
+                            function mostrarCategoria(categoria) {
+                                // Ocultar todos los productos
+                                var productos = document.querySelectorAll('.producto-carta');
+                                productos.forEach(function (producto) {
+                                    producto.style.display = 'none';
+                                });
+
+                                // Mostrar productos de la categoría seleccionada
+                                var productosCategoria = document.querySelectorAll('.producto-carta.' + categoria);
+                                productosCategoria.forEach(function (producto) {
+                                    producto.style.display = 'block';
+                                });
+                            }
+
+                            // Asociar las funciones con los botones de categoría
+                            <c:forEach var="a" items="${listaCategorias}">
+                            document.addEventListener('DOMContentLoaded', function () {
+                                var botonCategoria = document.querySelector('.btn${a.categoria}');
+                                botonCategoria.addEventListener('click', function () {
+                                    mostrarCategoria('${a.categoria}');
+                                });
+                            });
+                            function mostrarTodo() {
+                                var productos = document.querySelectorAll('.producto-carta');
+                                productos.forEach(function (producto) {
+                                    producto.style.display = 'block';
+                                });
+                            }
+                            </c:forEach>
+                        </script>
+
                     </ul>
                 </div>
 
@@ -96,7 +128,7 @@
                                         <p class="card-text"><strong>${a.categoria}</strong></p>
                                         <p class="card-text"><strong>Capacidad: ${a.capacidad}</strong></p>
                                         <p class="card-text"><strong>$ ${a.precio}</strong></p>
-                                        <button type="submit" class="btn btn-primary">Añadir a Carrito</button>
+                                        <button type="submit" class="btn btn-primary">Ver más</button>
                                         <p>Envio gratis</p>
                                     </div>
                                 </div>

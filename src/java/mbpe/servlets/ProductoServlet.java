@@ -26,36 +26,56 @@ public class ProductoServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
+
         DaoPlantillaImpl plantilla = new DaoPlantillaImpl();
+
         Plantilla mb = new Plantilla();
+        
+        System.out.println("PRODUCTO SERVLET added = "+mb.getAdded());
         Usuario user = Usuario.ObtenerUser();
         List carrito = Usuario.ObtenerCarrito();
-        
         request.setAttribute("conectado", user.getConectado());
-        String accion;
-        accion = request.getParameter("accion");
         RequestDispatcher dispatcher = null;
-        
-        if (accion == null || accion.isEmpty()) {
-            dispatcher = request.getRequestDispatcher("comprar.jsp");
+        dispatcher = request.getRequestDispatcher("producto.jsp");
+
+        String nombre;
+        String categoria;
+        int capacidad;
+        double precio;
+
+        if (mb.getAdded()) {
+            System.out.println("añadido con exito");
+            int id_plantilla = (int) request.getAttribute("id_plantilla");
+            mb = plantilla.PlantillaSelect(id_plantilla);
+            nombre = mb.getNombre();
+            categoria = mb.getCategoria();
+            capacidad = mb.getCapacidad();
+            precio = mb.getPrecio();
+        } else {
+            System.out.println("no se añadió");
             int id = Integer.parseInt(request.getParameter("id_plantilla"));
             request.setAttribute("id_plantilla", id);
-            
+
             mb = plantilla.PlantillaSelect(id);
-            String nombre = mb.getNombre();
-            String categoria = mb.getCategoria();
-            int capacidad = mb.getCapacidad();
-            double precio = mb.getPrecio();
-            request.setAttribute("nombre_plantilla", nombre);
-            request.setAttribute("categoria_plantilla", categoria);
-            request.setAttribute("capacidad_plantilla", capacidad);
-            request.setAttribute("precio_plantilla", precio);
-            dispatcher.forward(request, response);
-        } else if(accion == "carrito"){
-            
+            nombre = mb.getNombre();
+            categoria = mb.getCategoria();
+            capacidad = mb.getCapacidad();
+            precio = mb.getPrecio();
         }
+        boolean added = mb.getAdded();
+        request.setAttribute("nombre_plantilla", nombre);
+        request.setAttribute("categoria_plantilla", categoria);
+        request.setAttribute("capacidad_plantilla", capacidad);
+        request.setAttribute("precio_plantilla", precio);
+        request.setAttribute("added", added);
+        dispatcher.forward(request, response);
+        mb.setAdded(false);
+        System.out.println("added cambio a falso");
+        for (int i = 0; i < 5; i++) {
+            System.out.println(".");
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -96,6 +116,5 @@ public class ProductoServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 
 }
