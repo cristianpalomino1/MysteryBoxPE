@@ -33,26 +33,22 @@ public class AddProductServlet extends HttpServlet {
         Plantilla mb = new Plantilla();
 
         mb.setAdded(true);
-        System.out.println("ADD PRODUCT SERVLET added = true"); 
-       Usuario user = Usuario.ObtenerUser();
-        List carrito = Usuario.ObtenerCarrito();
+        System.out.println("ADD PRODUCT SERVLET added = true");
+        Usuario user = Usuario.ObtenerUser();
         request.setAttribute("conectado", user.getConectado());
 
         RequestDispatcher dispatcher = null;
 
-        //crear un servlet para añadir al carrito, hacer que este servlet envie un flag a 
-        //este servlet y me redirija a esta pagina y que la pagina jsp dependiendo si tiene 
-        //o no la flag mostrará la ventana modal
         int id_plantilla = Integer.parseInt(request.getParameter("id_plantilla"));
         int cantidad = Integer.parseInt(request.getParameter("cantidad"));
 
         user.ObtenerCarrito().add(id_plantilla);
         user.ObtenerCantidad().add(cantidad);
-        
+
         for (int i = 0; i < user.ObtenerCarrito().size(); i++) {
-            System.out.println("producto: "+ user.ObtenerCarrito().get(i) +" cantidad: "+ user.ObtenerCantidad().get(i));
+            System.out.println("producto: " + user.ObtenerCarrito().get(i) + " cantidad: " + user.ObtenerCantidad().get(i));
         }
-        
+
         System.out.println("producto: " + id_plantilla);
         System.out.println("cantidad: " + cantidad);
 

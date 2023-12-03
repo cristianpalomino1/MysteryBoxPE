@@ -37,7 +37,7 @@
 
             }
             function irAlCarrito() {
-                window.location.href = "/MysteryBoxPE"; 
+                window.location.href = "Carrito"; 
             }
             cerrar.addEventListener('click', () => {
                 contenedor_modal.classList.remove('show');

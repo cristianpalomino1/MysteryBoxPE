@@ -33,37 +33,6 @@ public class IndexServlet extends HttpServlet {
     DaoPlantillaImpl plantilla = new DaoPlantillaImpl();
     DaoCategoriaImpl categoria = new DaoCategoriaImpl();
 
-    private void obtenerYConfigurarDatos(HttpServletRequest request) {
-
-        List<Plantilla> listaPlantillas = plantilla.PlantillaList();
-        List<Categoria> listaCategorias = categoria.CategoriaList();
-
-        for (int i = 0; i < listaPlantillas.size(); i++) {
-            int id_plantilla = listaPlantillas.get(i).getId_plantilla();
-            String nombre = listaPlantillas.get(i).getNombre();
-            String categoria = listaPlantillas.get(i).getCategoria();
-            int capacidad = listaPlantillas.get(i).getCapacidad();
-            double precio = listaPlantillas.get(i).getPrecio();
-
-            String aux = String.valueOf(i);
-
-            request.setAttribute("id_plantilla", id_plantilla);
-            request.setAttribute("aux", aux);
-            request.setAttribute("nombre" + i, nombre);
-            request.setAttribute("categoria" + i, categoria);
-            request.setAttribute("capacidad" + i, capacidad);
-            request.setAttribute("precio" + i, precio);
-        }
-
-        for (int i = 0; i < listaCategorias.size(); i++) {
-            int id_categoria = listaCategorias.get(i).getId();
-            String nom_categoria = listaCategorias.get(i).getCategoria();
-            request.setAttribute("categoria" + i, nom_categoria);
-        }
-        request.setAttribute("listaCategorias", listaCategorias);
-        request.setAttribute("listaPlantillas", listaPlantillas);
-    }
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -73,12 +42,14 @@ public class IndexServlet extends HttpServlet {
         Usuario user = Usuario.ObtenerUser();
         List carrito = Usuario.ObtenerCarrito();
         request.setAttribute("conectado", user.getConectado());
-
-        String accion;
         RequestDispatcher dispatcher = null;
-        accion = request.getParameter("accion");
         dispatcher = request.getRequestDispatcher("index.jsp");
-        obtenerYConfigurarDatos(request);
+        
+        List<Plantilla> listaPlantillas = plantilla.PlantillaList();
+        List<Categoria> listaCategorias = categoria.CategoriaList();
+        request.setAttribute("listaCategorias", listaCategorias);
+        request.setAttribute("listaPlantillas", listaPlantillas);
+        
         dispatcher.forward(request, response);
     }
 

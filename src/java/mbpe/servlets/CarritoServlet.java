@@ -6,6 +6,8 @@ package mbpe.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mbpe.DAOimpl.DaoPlantillaImpl;
+import mbpe.clases.Carrito;
 import mbpe.clases.Plantilla;
 import mbpe.clases.Usuario;
 
@@ -29,26 +32,59 @@ public class CarritoServlet extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
         DaoPlantillaImpl plantilla = new DaoPlantillaImpl();
+
         Plantilla mb = new Plantilla();
         Usuario user = Usuario.ObtenerUser();
-        List carrito = Usuario.ObtenerCarrito();
-        request.setAttribute("conectado", user.getConectado());
 
+        List lista_id = Usuario.ObtenerCarrito();
+        List lista_cantidad = Usuario.ObtenerCantidad();
+
+        request.setAttribute("conectado", user.getConectado());
         RequestDispatcher dispatcher = null;
 
         dispatcher = request.getRequestDispatcher("carrito.jsp");
-        int id = Integer.parseInt(request.getParameter("id_plantilla"));
-        request.setAttribute("id_plantilla", id);
 
-        mb = plantilla.PlantillaSelect(id);
-        String nombre = mb.getNombre();
-        String categoria = mb.getCategoria();
-        int capacidad = mb.getCapacidad();
-        double precio = mb.getPrecio();
-        request.setAttribute("nombre_plantilla", nombre);
-        request.setAttribute("categoria_plantilla", categoria);
-        request.setAttribute("capacidad_plantilla", capacidad);
-        request.setAttribute("precio_plantilla", precio);
+        List<Carrito> lista_productos_carrito = new ArrayList();
+
+        double subTotal;
+        double Total = 0;
+        int cantSkin=0;
+        int cantProd=0;
+        for (int i = 0; i < lista_id.size(); i++) {
+            int id_plantilla = (Integer) lista_id.get(i);
+            int numero = (Integer) lista_cantidad.get(i);
+
+            mb = plantilla.PlantillaSelect(id_plantilla);
+
+            Carrito carrito = new Carrito();
+
+            carrito.setId_plantilla(id_plantilla);
+            carrito.setCantidad(numero);
+            carrito.setNombre_plantilla(mb.getNombre());
+            carrito.setCategoria_plantilla(mb.getCategoria());
+            carrito.setCapacidad_plantilla(mb.getCapacidad());
+            carrito.setPrecio_plantilla(mb.getPrecio());
+            
+            
+            if (carrito.getId_skin() == 0) {
+                subTotal = carrito.getPrecio_plantilla() * carrito.getCantidad();
+            } else {
+                subTotal = (carrito.getPrecio_plantilla() * carrito.getCantidad()) + 5;
+                cantSkin++;     
+            }
+            cantProd = carrito.getCantidad() + cantProd;
+            
+            Total = subTotal + Total;
+        
+            lista_productos_carrito.add(carrito);
+            
+            
+        }
+        DecimalFormat df = new DecimalFormat("#.00");
+        request.setAttribute("lista_carrito", lista_productos_carrito);
+        request.setAttribute("Total", df.format(Total));
+        request.setAttribute("cantidad_Productos", cantProd);
+        request.setAttribute("cantidad_Skins", cantSkin);
         dispatcher.forward(request, response);
 
     }
